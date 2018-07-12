@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head >
+		<title>Watch List Search - Login</title>
+		
+		<!-- Bootstrap resources -->
+		<meta charset="UTF-8">
+	   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	   	
+	   	<script th:src="@{/resources/js/jquery-3.3.1.min.js}"></script>
+	   	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+		<script th:src="@{/resources/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/resources/js/sactionlist.js}"></script>
+	   	
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.theme.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/sactionlist.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/login.css}">
+		
+	</head>
+	<body>
+
+	<div class="wrapper">
+	
+		<form id="login-form" action="#" th:action="@{/login}" th:object="${loginFB}" method="post">
+		
+			<h2 class="form-signin-heading">Please login</h2>
+			
+			<div th:if="${param.error}" class="alert alert-danger alert-dismissable">   
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+				<p>Invalid username and password</p>
+            </div>
+            
+            <div th:if="${param.logout}" class="alert alert-info alert-dismissable"> 
+            	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+				<p>You have been logged out.</p>
+            </div>
+            
+			<div class="form-group">
+				<label for="inputUsername">Username</label>
+				<input type="text" class="form-control" th:field="*{username}" placeholder="Username" required autofocus/>
+			</div>
+			
+			<div class="form-group">
+				<label for="inputPassword">Password</label>
+				<input type="password" class="form-control" th:field="*{password}" placeholder="Password" required/>
+			</div>
+			
+			<!-- <label class="checkbox"><input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me</label> -->
+			
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+			
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<div th:fragment="content">
+		<div>
+			<form id="audit-finder-form" action="#" th:action="@{/audit-finder}" th:object="${auditFinderFB}" method="post">
+			
+				<h2 class="form-signin-heading">Audit Finder</h2><br/>
+				
+				<div th:if="${param.error}" class="alert alert-danger alert-dismissable">   
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					<p>Invalid username or password</p>
+	            </div>
+				
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="inputUsername">Service: *</label>
+							<input type="text" class="form-control" th:field="*{serviceId}" placeholder="service" required autofocus/>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="inputPassword">Operation Type</label>
+							<input type="text" class="form-control" th:field="*{operationType}" placeholder="Operation Type" required/>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</html>

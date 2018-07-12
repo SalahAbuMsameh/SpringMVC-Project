@@ -1,0 +1,80 @@
+
+body {
+	font-size: 12px;
+}
+
+.table tbody tr td {
+	padding: 5px;
+	vertical-align: middle;
+}
+
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+	margin-top: 30px;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.well {
+	font-size: 14px;
+    font-weight: bold;
+}
+
+td.highlight {
+	text-align: center;
+	font-weight: bold;
+}
+
+.form-group .required:after { 
+   content:"*";
+   color:red;
+}
+
+.btn-main {
+	width: 150px;
+}
+
+.border-btm {
+	border-bottom: 1px solid #e5e5e5;
+	padding-bottom: 10px;
+}
+
+.cp-actions {
+	float: right;
+}
+
+.cp-info-tab {
+	font-size: 14px;
+}
+
+.cp-info-row {
+	padding-top: 20px;
+}
+
+#control-actions button {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.strong {
+	font-weight: bold;
+}
+
+#events {
+	overflow-y: auto;
+    max-height: 68vh;
+}
+
+#event-details-table {
+	overflow-y: auto;
+    max-height: 65vh;
+    padding: 30px 0px 0px 12px;
+}
+
+.value {
+	color: #4cae4c;
+}

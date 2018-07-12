@@ -1,0 +1,25 @@
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+	<!-- this is header -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/}">Middleware Portal</a>
+			</div>
+			
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a th:href="@{/audit-finder}">Audit Finder</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="active"><a th:href="@{/admin/user/users}">Users</a></li>
+				</ul>
+				<form id="login-form" action="#" th:action="@{/logout}" method="post">
+					<button type="submit" class="btn navbar-btn pull-right">Logout</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+</div>

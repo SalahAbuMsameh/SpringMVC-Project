@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head >
+		<title>Watch List Search</title>
+		
+		<!-- Bootstrap resources -->
+		<meta charset="UTF-8">
+	   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	   	
+	   	<script th:src="@{/resources/js/jquery-3.3.1.min.js}"></script>
+	   	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+		<script th:src="@{/resources/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/resources/js/middlware.js}"></script>
+	   	
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.theme.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/middlware.css}">
+	</head>
+	<body>
+	
+		<div th:replace="common/header :: header"></div>
+		
+		<!-- content fragment -->
+		<div class="container">
+			<div th:replace="${view} :: content">Content</div>
+		</div>
+		
+		<div th:replace="common/footer :: footer"></div>
+	
+	</body>
+</html>

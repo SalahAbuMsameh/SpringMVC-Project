@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                           http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.warba.middlware" />
+	
+	<bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/views/" />
+		<property name="suffix" value=".html" />
+	  	<property name="templateMode" value="HTML5" />
+	  	<property name="characterEncoding" value="UTF-8" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+		    <set>
+		      	<bean class="nz.net.ultraq.thymeleaf.LayoutDialect"/>
+		    </set>
+	  	</property>
+	</bean>
+	
+	<bean id="thymeleafViewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+	    <property name="templateEngine" ref="templateEngine" />
+	    <property name="characterEncoding" value="UTF-8" />
+	</bean>
+	
+<!-- 	<bean id="eCorporateDS" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 	    <property name="jndiName" value="java:comp/env/jdbc/eCorporateDS"/> -->
+<!-- 	</bean> -->
+
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
+</beans>
