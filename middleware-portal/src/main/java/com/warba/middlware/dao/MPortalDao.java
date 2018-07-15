@@ -1,5 +1,7 @@
 package com.warba.middlware.dao;
 
+import java.io.Serializable;
+
 import com.warba.common.dao.DaoBase;
 import com.warba.common.dao.DaoModel;
 
@@ -8,7 +10,12 @@ import com.warba.common.dao.DaoModel;
  * 
  * @author Salah Abu Msameh
  */
-public class MPortalDao extends DaoBase {
+public class MPortalDao extends DaoBase implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected String getConfigFileName(DaoModel dao) {

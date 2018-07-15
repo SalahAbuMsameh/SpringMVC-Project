@@ -1,6 +1,7 @@
 
 body {
 	font-size: 12px;
+	background-color: #f7f7f7;
 }
 
 .table tbody tr td {
@@ -42,43 +43,19 @@ td.highlight {
 	width: 150px;
 }
 
-.border-btm {
-	border-bottom: 1px solid #e5e5e5;
-	padding-bottom: 10px;
-}
-
-.cp-actions {
-	float: right;
-}
-
-.cp-info-tab {
-	font-size: 14px;
-}
-
-.cp-info-row {
-	padding-top: 20px;
-}
-
-#control-actions button {
-	width: 100%;
-	margin-bottom: 5px;
-}
-
-.strong {
-	font-weight: bold;
-}
-
-#events {
-	overflow-y: auto;
-    max-height: 68vh;
-}
-
-#event-details-table {
-	overflow-y: auto;
-    max-height: 65vh;
-    padding: 30px 0px 0px 12px;
-}
-
 .value {
 	color: #4cae4c;
+}
+
+.navbar-inverse {
+    background-color: #380786;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    background-color: #4c4a77;
+}
+
+.ui-widget-header {
+    background: #38077A;
+    color: #ffffff;
 }

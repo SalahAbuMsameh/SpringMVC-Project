@@ -21,6 +21,11 @@ import com.warba.middlware.dao.entity.AuditPayload;
 public class AuditDao extends MPortalDao {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * fetch payloads for the given criteria
 	 * 
 	 * @param serviceId

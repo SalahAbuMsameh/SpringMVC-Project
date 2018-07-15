@@ -12,7 +12,7 @@
 			    	<p th:errors="*{global}">Error</p>
 			  	</div>
 				
-				<div class="row">
+				<div class="row" style="padding-bottom:  15px;">
 			  		<div class="col-sm-4">
 			  			<label class="required" for="service" th:text="#{label.service}">Service</label>
 						<select id="service" class="form-control" th:field="*{serviceId}">
@@ -71,39 +71,33 @@
 			  		</div>
 			  	</div>
 
-			  	<button type="submit" class="btn btn-primary" th:text="#{button.search}">Search</button>
+			  	<button type="submit" class="btn btn-primary btn-main" th:text="#{button.search}">Search</button>
 
 			  	<hr/>
 
 			  	<div class="result">
-			  		<div th:unless="${payloads}">
-					   	<div class="alert alert-danger">No result found.</div>
-					</div>
-					<!-- ELSE -->
-					<div th:if="${payloads}">
-					   	<table id="payloads-result-table" class="table table-condensed">
-					  		<thead>
-					  			<tr>
-					  				<th th:text="#{label.id}">ID</th>
-					  				<th th:text="#{label.trx.id}">Trx Id</th>
-					  				<th th:text="#{label.service}">Service</th>
-					  				<th th:text="#{label.payloadType}">Payload Type</th>
-					  				<th th:text="#{label.channelKey}">Channel Key</th>
-					  				<th th:text="#{label.date}">Date</th>
-					  			</tr>
-					  		</thead>
-					  		<tbody>
-					  			<tr th:each="payload : ${payloads}">
-									<td th:text="${payload.auditPayloadId}"></td>
-									<td th:text="${payload.auditTrxId}"></td>
-									<td th:text="${payload.serviceId}"></td>
-									<td th:text="${payload.payloadType}"></td>
-									<td th:text="${payload.channelKey}"></td>
-									<td th:text="${payload.date}"></td>
-								</tr>
-					  		</tbody>
-					  	</table>
-					</div>
+			  		<table id="payloads-result-table" class="table table-condensed">
+				  		<thead>
+				  			<tr>
+				  				<th th:text="#{label.id}">ID</th>
+				  				<th th:text="#{label.trx.id}">Trx Id</th>
+				  				<th th:text="#{label.service}">Service</th>
+				  				<th th:text="#{label.payloadType}">Payload Type</th>
+				  				<th th:text="#{label.channelKey}">Channel Key</th>
+				  				<th th:text="#{label.date}">Date</th>
+				  			</tr>
+				  		</thead>
+				  		<tbody>
+				  			<tr th:each="payload : ${payloads}">
+								<td th:text="${payload.auditPayloadId}"></td>
+								<td th:text="${payload.auditTrxId}"></td>
+								<td th:text="${payload.serviceId}"></td>
+								<td th:text="${payload.payloadType}"></td>
+								<td th:text="${payload.channelKey}"></td>
+								<td th:text="${payload.date}"></td>
+							</tr>
+				  		</tbody>
+				  	</table>
 			  	</div>
 				
 			</form>
@@ -111,7 +105,7 @@
 			<!-- payload details dialog -->
 			<div id="payload-dialog" title="Payload Details">
 				
-				<div class="row">
+				<div class="row" style="padding: 15px 0px 15px 0px;">
 					<div id="trx-id-dialog-field" class="col-sm-4">
 						<strong>Transaction Id</strong><br />
 						<span>id</span>

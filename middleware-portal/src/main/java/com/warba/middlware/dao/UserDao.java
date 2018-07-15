@@ -18,6 +18,11 @@ import com.warba.middlware.dao.entity.User;
 public class UserDao extends MPortalDao {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * find user for the given username 
 	 * 
 	 * @param username

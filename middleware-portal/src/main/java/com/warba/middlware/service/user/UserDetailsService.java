@@ -1,5 +1,6 @@
 package com.warba.middlware.service.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,8 +27,13 @@ import com.warba.middlware.dao.entity.User;
  * @author Salah Abu Msameh
  */
 @Service
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private UserDao userDao;
 	
