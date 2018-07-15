@@ -2,6 +2,7 @@
 body {
 	font-size: 12px;
 	background-color: #f7f7f7;
+	color: #975b5b;
 }
 
 .table tbody tr td {
@@ -58,4 +59,13 @@ td.highlight {
 .ui-widget-header {
     background: #38077A;
     color: #ffffff;
+}
+
+.screen-height {
+	height: 86vh;
+}
+
+.payloads-search-results {
+	height: 44vh;
+	overflow: auto;
 }

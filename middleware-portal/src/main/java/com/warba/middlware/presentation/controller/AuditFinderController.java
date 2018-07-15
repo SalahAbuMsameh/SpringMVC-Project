@@ -78,6 +78,12 @@ public class AuditFinderController {
 		return Pages.AUDIT_FINDER;
 	}
 	
+	/**
+	 * get payload content for the given audit payload id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@ResponseBody
 	@GetMapping(path = "/audit-finder/getPayload/{id}")
 	public String getPayload(@PathVariable String id) {

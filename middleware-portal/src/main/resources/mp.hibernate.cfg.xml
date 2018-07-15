@@ -9,7 +9,7 @@
 		<!-- Database info -->
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
-		<property name="hibernate.connection.datasource">java:comp/env/jdbc/integDS</property>
+		<property name="hibernate.connection.datasource">java:comp/env/jdbc/IntegrationServicesDS</property>
 		
 		<property name="hibernate.current_session_context_class">thread</property>
 		
@@ -21,6 +21,7 @@
 		<mapping class="com.warba.middlware.dao.entity.User"/>
 		<mapping class="com.warba.middlware.dao.entity.Role"/>
 		<mapping class="com.warba.middlware.dao.entity.UserPassword"/>
+		<mapping class="com.warba.common.dao.config.ConfigEntity"/>
 		
 	</session-factory>
 </hibernate-configuration>

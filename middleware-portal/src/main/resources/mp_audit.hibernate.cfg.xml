@@ -9,7 +9,7 @@
 		<!-- Database info -->
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
-		<property name="hibernate.connection.datasource">java:comp/env/jdbc/auditDS</property>
+		<property name="hibernate.connection.datasource">java:comp/env/jdbc/AuditServiceDS</property>
 		
 		<property name="hibernate.current_session_context_class">thread</property>
 		

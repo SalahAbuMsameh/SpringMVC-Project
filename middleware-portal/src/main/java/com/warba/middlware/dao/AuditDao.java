@@ -41,8 +41,7 @@ public class AuditDao extends MPortalDao {
 		Session session = beginTransaction();
 		
 		try {
-			Query<AuditPayload> query = session.createQuery(buildQuery(payloadType, channelKey, date), 
-					AuditPayload.class);
+			Query<AuditPayload> query = session.createQuery(buildQuery(payloadType, channelKey, date), AuditPayload.class);
 			query.setParameter("serviceId", serviceId);
 			
 			if(payloadType > 0) {
@@ -124,6 +123,8 @@ public class AuditDao extends MPortalDao {
 		if(date != null) {
 			sb.append("AND date = :date ");
 		}
+		
+		sb.append("ORDER BY date DESC");
 		
 		return sb.toString();
 	}
