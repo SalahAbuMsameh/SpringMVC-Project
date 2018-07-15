@@ -8,6 +8,10 @@ body {
 	vertical-align: middle;
 }
 
+tbody>tr:hover {
+	background-color: #f5e8e8;
+}
+
 footer {
 	background-color: #555;
 	color: white;

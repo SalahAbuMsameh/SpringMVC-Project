@@ -1,4 +1,4 @@
-package com.warba.middlware.common;
+package com.warba.middlware.service.user;
 
 /**
  * User status

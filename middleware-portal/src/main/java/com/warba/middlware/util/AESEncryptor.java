@@ -5,6 +5,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+import com.warba.common.utils.Log;
 
 /**
  * 
@@ -36,7 +39,7 @@ public class AESEncryptor {
 			return Base64.encodeBase64String(cipher.doFinal(value.getBytes()));
 			
 		} catch (Exception ex) {
-			Log.error(AESEncryptor.class, null, ex);
+			Log.error(AESEncryptor.class, ExceptionUtils.getFullStackTrace(ex));
 		}
 
 		return null;
@@ -62,7 +65,7 @@ public class AESEncryptor {
 			return new String(cipher.doFinal(Base64.decodeBase64(encryptedValue)));
 			
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Log.error(AESEncryptor.class, ExceptionUtils.getFullStackTrace(ex));
 		}
 		
 		return null;

@@ -7,34 +7,36 @@ import javax.persistence.NoResultException;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
+import com.warba.common.dao.DaoException;
 import com.warba.middlware.dao.entity.User;
-import com.warba.middlware.util.Log;
 
 /**
  * 
  * @author Salah Abu Msameh
  */
 @Component
-public class UserDao extends DaoBase {
+public class UserDao extends MPortalDao {
 	
 	/**
 	 * find user for the given username 
 	 * 
 	 * @param username
 	 * @return
+	 * @throws DaoException 
 	 */
-	public User findByUsername(String username) {
-		return findWhereField("username", username, User.class);
+	public User findByUsername(String username) throws DaoException {
+		return findWhere("username", username, User.class);
 	}
 	
 	/**
 	 * 
 	 * @param userId
 	 * @return
+	 * @throws DaoException 
 	 */
-	public List<String> findUserRoles(long userId) {
+	public List<String> findUserRoles(long userId) throws DaoException {
 		
-		Session session = openSession();
+		Session session = beginTransaction();
 		String sql = "SELECT R.ROLE_VAL FROM MP_ROLES R\r\n" + 
 				"INNER JOIN MP_USER_ROLES UR ON R.ROLE_ID = UR.ROLE_ID\r\n" + 
 				"WHERE UR.USER_ID = :userId";
@@ -46,14 +48,14 @@ public class UserDao extends DaoBase {
 					
 			commit(session);
 			
-			return roles;
-			
-		} catch (NoResultException ex) {
+			return roles;	
+		} 
+		catch (NoResultException ex) {
 			rollback(session);
-			
-		} catch (Exception ex) {
-			Log.error(DaoBase.class, null, ex);
+		} 
+		catch (Exception ex) {
 			rollback(session);
+			throw new DaoException(ex);
 		}
 		
 		return null;

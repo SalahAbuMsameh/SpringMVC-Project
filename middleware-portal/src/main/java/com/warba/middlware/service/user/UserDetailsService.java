@@ -1,4 +1,4 @@
-package com.warba.middlware.service;
+package com.warba.middlware.service.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,13 +8,15 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.warba.middlware.common.UserStatus;
+import com.warba.common.dao.DaoException;
+import com.warba.common.utils.Log;
 import com.warba.middlware.dao.UserDao;
 import com.warba.middlware.dao.entity.User;
 
@@ -77,19 +79,22 @@ public class UserDetailsService implements org.springframework.security.core.use
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-		for(String role : userDao.findUserRoles(user.getUserId())) {
-			authorities.add(new GrantedAuthority() {
+		try {
+			for(String role : userDao.findUserRoles(user.getUserId())) {
 				
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+				authorities.add(new GrantedAuthority() {
+					
+					private static final long serialVersionUID = 1L;
 
-				@Override
-				public String getAuthority() {
-					return role;
-				}
-			});
+					@Override
+					public String getAuthority() {
+						return role;
+					}
+				});
+			}
+		} 
+		catch (DaoException e) {
+			Log.error(UserDetailsService.class, ExceptionUtils.getFullStackTrace(e));
 		}
 		
 		return new SystemUserDetails(username, password, expired, locked, authorities, user) ;

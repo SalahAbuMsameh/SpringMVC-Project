@@ -11,19 +11,7 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
 		<property name="hibernate.connection.datasource">java:comp/env/jdbc/integDS</property>
 		
-		<!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SANCTION_LIST_SEARCH</property> -->
-		<!-- <property name="hibernate.connection.username">root</property> -->
-		<!-- <property name="hibernate.connection.password">root</property> -->
-		
-		
 		<property name="hibernate.current_session_context_class">thread</property>
-		
-		<!-- Use the C3P0 connection pool provider -->
-		<!-- <property name="hibernate.c3p0.min_size">5</property>
-		<property name="hibernate.c3p0.max_size">20</property>
-		<property name="hibernate.c3p0.timeout">300</property>
-		<property name="hibernate.c3p0.max_statements">50</property>
-		<property name="hibernate.c3p0.idle_test_period">3000</property> -->
 		
 		<!-- Show and print nice SQL on stdout -->
 		<property name="show_sql">true</property>

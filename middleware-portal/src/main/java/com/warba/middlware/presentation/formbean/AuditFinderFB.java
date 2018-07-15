@@ -8,26 +8,28 @@ import java.util.Date;
  */
 public class AuditFinderFB {
 
-	private String serviceId;
-	private String operationType;
-	private Date date;
+	private long serviceId;
+	private int payloadType;
 	private String channelKey;
+	private Date date;
+	
+	private String auditTrxId;
 	private String phrase;
 	
-	public String getServiceId() {
+	public long getServiceId() {
 		return serviceId;
 	}
 	
-	public void setServiceId(String serviceId) {
+	public void setServiceId(long serviceId) {
 		this.serviceId = serviceId;
 	}
 	
-	public String getOperationType() {
-		return operationType;
+	public int getPayloadType() {
+		return payloadType;
 	}
 	
-	public void setOperationType(String operationType) {
-		this.operationType = operationType;
+	public void setPayloadType(int payloadType) {
+		this.payloadType = payloadType;
 	}
 	
 	public Date getDate() {
@@ -44,6 +46,14 @@ public class AuditFinderFB {
 	
 	public void setChannelKey(String channelKey) {
 		this.channelKey = channelKey;
+	}
+	
+	public String getAuditTrxId() {
+		return auditTrxId;
+	}
+	
+	public void setAuditTrxId(String auditTrxId) {
+		this.auditTrxId = auditTrxId;
 	}
 	
 	public String getPhrase() {
