@@ -63,6 +63,7 @@ td.highlight {
 
 .screen-height {
 	height: 86vh;
+	overflow: auto;
 }
 
 .payloads-search-results {

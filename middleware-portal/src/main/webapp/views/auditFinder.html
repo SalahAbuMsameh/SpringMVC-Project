@@ -47,11 +47,47 @@
 			  		
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
-					    	<label th:text="#{label.date}">Date</label>
-					    	<input type="text" id="datepicker" class="form-control" th:field="*{date}"/>
+					    	<label for="Phrase" th:text="#{label.phrase}">Phrase</label>
+					    	<input type="text" id="Phrase" class="form-control" th:field="*{phrase}"/>
 					  	</div>
 			  		</div>
-			  		
+			  	</div>
+			  	
+			  	<hr/>
+			  	
+			  	<div class="row">
+			  		<div class="col-sm-4">
+			  			<div class="form-group">
+					    	<div class="radio">
+						      	<label for="date" style="font-weight: bold;" th:text="#{label.date}">
+						      		<input type="radio" name="dateRadio" value="date" th:field="*{dateType}" checked="checked">Date
+						      	</label>
+						    </div>
+					    	<input type="date" id="date" class="form-control datepicker-input" th:field="*{date}"/>
+					  	</div>
+			  		</div>
+			  	</div>
+			  	
+			  	<div class="row">
+			  	
+			  		<div class="radio" style="padding-left: 15px;">
+				      	<label style="font-weight: bold;" th:text="#{label.interval}">
+				      		<input type="radio" name="dateRadio" value="interval" th:field="*{dateType}">Interval
+				      	</label>
+				    </div>
+			  	
+			  		<div class="col-sm-4">
+			  			<div class="form-group">
+					    	<input type="date" id="datepicker" class="form-control datepicker-input" th:field="*{fromDate}" placeholder="From Date"/>
+					    	<p style="color: red;" th:if="${#fields.hasErrors('fromDate')}" th:errors="*{fromDate}">Invalid date</p>
+					  	</div>
+			  		</div>
+			  		<div class="col-sm-4">
+			  			<div class="form-group">
+					    	<input type="date" id="datepicker" class="form-control datepicker-input" th:field="*{toDate}" placeholder="To Date"/>
+					    	<p style="color: red;" th:if="${#fields.hasErrors('toDate')}" th:errors="*{toDate}">Invalid date</p>
+					  	</div>
+			  		</div>
 			  	</div>
 			  	
 			  	<hr/>
@@ -60,13 +96,7 @@
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
 					    	<label for="trxId" th:text="#{label.trx.id}">Transaction Id</label>
-					    	<input type="text" id="trxId" class="form-control" th:field="*{auditTrxId}"/>
-					  	</div>
-			  		</div>
-			  		<div class="col-sm-4">
-			  			<div class="form-group">
-					    	<label for="Phrase" th:text="#{label.phrase}">Phrase</label>
-					    	<input type="text" id="Phrase" class="form-control" th:field="*{phrase}"/>
+					    	<textarea id="trx-ids" class="form-control" rows="5" th:field="*{auditTrxId}"></textarea>
 					  	</div>
 			  		</div>
 			  	</div>
@@ -76,7 +106,8 @@
 			  	<hr/>
 
 			  	<div class="payloads-search-results">
-			  		<table id="payloads-result-table" class="table table-condensed">
+			  		<!-- <table id="payloads-result-table" class="table table-condensed"> -->
+			  		<table id="payloads-result-table" class="table table-bordered table-hover table-striped">
 				  		<thead>
 				  			<tr>
 				  				<th th:text="#{label.id}">ID</th>
