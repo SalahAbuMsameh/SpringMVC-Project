@@ -5,6 +5,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +19,40 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "AUDIT_PAYLOADS")
+@NamedQueries({
+	@NamedQuery(
+		name = "get_audits_by_trx_ids", 
+		query = "FROM AuditPayload WHERE auditTrxId in (:trxIds) ORDER BY date DESC"
+	),
+	@NamedQuery(
+		name = "get_audits", 
+		query = "FROM AuditPayload WHERE serviceId = :serviceId AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC"
+	),
+	@NamedQuery(
+		name = "get_audits_by_payload_type", 
+		query = "FROM AuditPayload WHERE serviceId = :serviceId AND payloadType = :payloadType AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC"
+	),
+	@NamedQuery(
+		name = "get_audits_by_channel", 
+		query = "FROM AuditPayload WHERE serviceId = :serviceId AND channelKey = :channelKey AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC"
+	)
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(
+		name = "get_audits_by_payload_type_phrase", 
+		query = "SELECT AUDIT_PAYLOAD_ID AS auditPayloadId, AUDIT_PAYLOAD_TRX_ID AS auditTrxId, SERVICE_ID AS serviceId,"
+				+ " PAYLOAD_TYPE AS payloadType, CHANNEL_KEY AS channelKey, AUDIT_PAYLOAD_DATE AS date "
+				+ " FROM AUDIT_PAYLOADS WHERE SERVICE_ID = :serviceId AND PAYLOAD_TYPE = :payloadType AND PAYLOAD LIKE %:phrase%",
+		resultClass = AuditPayload.class
+	),
+	@NamedNativeQuery(
+		name = "get_audits_by_channel_and_phrase", 
+		query = "SELECT AUDIT_PAYLOAD_ID AS auditPayloadId, AUDIT_PAYLOAD_TRX_ID AS auditTrxId, SERVICE_ID AS serviceId,"
+				+ " PAYLOAD_TYPE AS payloadType, CHANNEL_KEY AS channelKey, AUDIT_PAYLOAD_DATE AS date "
+				+ " FROM AUDIT_PAYLOADS WHERE SERVICE_ID = :serviceId AND CHANNEL_KEY = :channelKey AND PAYLOAD LIKE %:phrase%",
+		resultClass = AuditPayload.class
+	)
+})
 public class AuditPayload {
 	
 	private long auditPayloadId;
@@ -23,7 +61,6 @@ public class AuditPayload {
 	private int payloadType;
 	private String channelKey;
 	private Date date;
-	//private String payload;
 	
 	@Id
 	@Column(name = "AUDIT_PAYLOAD_ID")
@@ -80,13 +117,4 @@ public class AuditPayload {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-//	@Column(name = "PAYLOAD")
-//	public String getPayload() {
-//		return payload;
-//	}
-//	
-//	public void setPayload(String payload) {
-//		this.payload = payload;
-//	}	
 }

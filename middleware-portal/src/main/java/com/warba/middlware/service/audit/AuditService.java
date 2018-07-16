@@ -44,13 +44,21 @@ public class AuditService {
 	}
 	
 	/**
-	 * search audit payloads for the given audit transaction id
+	 * Search audit payloads for the given audit transaction id
 	 * 
-	 * @param auditTrxId
+	 * @param trxIds
 	 * @return
+	 * @throws ServiceException 
 	 */
-	public List<AuditPayload> searchPayload(String auditTrxId) {
-		return null;
+	public List<AuditPayload> searchPayload(List<String> trxIds) throws ServiceException {
+		
+		try {
+			return auditDao.findAuditPayloads(trxIds, 0, 0, null, null, null, null);
+		} 
+		catch (DaoException e) {
+			Log.error(AuditService.class, ExceptionUtils.getFullStackTrace(e));
+			throw new ServiceException(e);
+		}
 	}
 	
 	/**
@@ -62,10 +70,11 @@ public class AuditService {
 	 * @param date
 	 * @return
 	 */
-	public List<AuditPayload> searchPayload(long serviceId, int payloadType, String channelKey, Date date) throws ServiceException {
+	public List<AuditPayload> searchPayload(List<String> trxIds, long serviceId, int payloadType, String channelKey,
+			Date fromDate, Date toDate, String phrase) throws ServiceException {
 		
 		try {
-			return auditDao.findAuditPayloads(serviceId, payloadType, channelKey, date);
+			return auditDao.findAuditPayloads(trxIds, serviceId, payloadType, channelKey, fromDate, toDate, phrase);
 		} 
 		catch (DaoException e) {
 			Log.error(AuditService.class, ExceptionUtils.getFullStackTrace(e));

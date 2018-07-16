@@ -8,8 +8,8 @@ import javax.persistence.NoResultException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
+
 import com.warba.common.dao.DaoException;
 import com.warba.middlware.dao.entity.AuditPayload;
 
@@ -26,37 +26,76 @@ public class AuditDao extends MPortalDao {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * fetch payloads for the given criteria
+	 * fetch audit payloads details for the given criteria
 	 * 
+	 * @param trxIds
 	 * @param serviceId
 	 * @param payloadType
 	 * @param channelKey
-	 * @param date
+	 * @param fromDate
+	 * @param toDate
+	 * @param phrase
+	 * 
 	 * @return
-	 * @throws DaoException 
+	 * @throws DaoException
 	 */
-	public List<AuditPayload> findAuditPayloads(long serviceId, int payloadType, String channelKey, Date date) throws DaoException {
+	public List<AuditPayload> findAuditPayloads(List<String> trxIds, long serviceId, int payloadType, String channelKey,
+			Date fromDate, Date toDate, String phrase) throws DaoException {
 		
 		List<AuditPayload> payloads = null;
 		Session session = beginTransaction();
 		
 		try {
-			Query<AuditPayload> query = session.createQuery(buildQuery(payloadType, channelKey, date), AuditPayload.class);
-			query.setParameter("serviceId", serviceId);
-			
-			if(payloadType > 0) {
-				query.setParameter("payloadType", payloadType);
+			if(!trxIds.isEmpty()) {
+				payloads = session.createNamedQuery("get_audits_by_trx_ids", AuditPayload.class)
+						.setParameter("trxIds", trxIds)
+						.getResultList();
+			}
+			else if(payloadType > 0 && StringUtils.isEmpty(channelKey)) {
+				
+				//get by payload type
+				if(StringUtils.isEmpty(phrase)) {
+					payloads = session.createNamedQuery("get_audits_by_payload_type", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("payloadType", payloadType)
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.getResultList();
+				}
+				else {
+					//get by payload type & phrase
+					payloads = session.createNamedQuery("get_audits_by_payload_type_and_phrase", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("payloadType", payloadType)
+							.setParameter("phrase", phrase)
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.getResultList();
+				}
+			}
+			else if(!StringUtils.isEmpty(channelKey)) {
+				
+				//get by channelKey type
+				if(StringUtils.isEmpty(phrase)) {
+					payloads = session.createNamedQuery("get_audits_by_channel", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("channelKey", channelKey)
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.getResultList();
+				}
+				else {
+					//get by channelKey & phrase
+					payloads = session.createNativeQuery("get_audits_by_channel_and_phrase", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("channelKey", channelKey)
+							.setParameter("phrase", phrase)
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.getResultList();
+				}
 			}
 			
-			if(!StringUtils.isEmpty(channelKey)) {
-				query.setParameter("channelKey", channelKey);
-			}
-			
-			if(date != null) {
-				query.setParameter("date", date);
-			}
-			
-			payloads = query.getResultList();
 			commit(session);
 		} 
 		catch (NoResultException ex) {
@@ -98,35 +137,6 @@ public class AuditDao extends MPortalDao {
 		}
 		
 		return null;
-	}
-	
-	/**
-	 * 
-	 * @param serviceId
-	 * @param payloadType
-	 * @param channelKey
-	 * @param date
-	 * @return
-	 */
-	private String buildQuery(int payloadType, String channelKey, Date date) {
-		
-		StringBuilder sb = new StringBuilder("FROM AuditPayload WHERE serviceId=:serviceId ");
-		
-		if(payloadType > 0) {
-			sb.append("AND payloadType = :payloadType ");
-		}
-		
-		if(!StringUtils.isEmpty(channelKey)) {
-			sb.append("AND channelKey = :channelKey ");
-		}
-		
-		if(date != null) {
-			sb.append("AND date = :date ");
-		}
-		
-		sb.append("ORDER BY date DESC");
-		
-		return sb.toString();
 	}
 	
 	@Override

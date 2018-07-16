@@ -49,7 +49,7 @@ $(function() {
 		//get payload content
 		$.get('/middleware-portal/audit-finder/getPayload/' + $(this).closest('tr').children('td:eq(0)').text(), function(data) {
 			console.log(data);
-			$('#payload-content').text(data);
+			$('#payload-content code').text(data);
 		});
 		
 		dialog.dialog("open");

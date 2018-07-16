@@ -13,17 +13,17 @@ public class AuditFinderFB {
 	private long serviceId;
 	private int payloadType;
 	private String channelKey;
-	private String auditTrxId;
+	private String auditTrxIds;
 	private String phrase;
 	private String dateType;
 	
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fromDate;
 	
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date toDate;
 	
 	public long getServiceId() {
@@ -82,12 +82,12 @@ public class AuditFinderFB {
 		this.dateType = dateType;
 	}
 	
-	public String getAuditTrxId() {
-		return auditTrxId;
+	public String getAuditTrxIds() {
+		return auditTrxIds;
 	}
 	
-	public void setAuditTrxId(String auditTrxId) {
-		this.auditTrxId = auditTrxId;
+	public void setAuditTrxIds(String auditTrxIds) {
+		this.auditTrxIds = auditTrxIds;
 	}
 	
 	public String getPhrase() {

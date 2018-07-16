@@ -1,5 +1,7 @@
 package com.warba.middlware.presentation.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -42,7 +44,7 @@ public class AuditFinderController {
 	 */
 	@InitBinder
     protected void initBinder(final WebDataBinder binder) {
-		binder.addValidators(new AuditFinderFormValidator());
+		//binder.addValidators(new AuditFinderFormValidator());
 	}
 	
 	/**
@@ -69,14 +71,20 @@ public class AuditFinderController {
 	@PostMapping(path = "/audit-finder")
 	public String search(Model model, @Valid AuditFinderFB auditFinderFB, BindingResult bindingResult) {
 		
+		if(bindingResult.hasErrors()) {
+			return Pages.AUDIT_FINDER;
+		}
+		
 		List<AuditPayload> payloads = null;
 		
 		try {
-			if(!StringUtils.isEmpty(auditFinderFB.getAuditTrxId())) {
-				payloads = auditSrv.searchPayload(auditFinderFB.getAuditTrxId());
+			if(!StringUtils.isEmpty(auditFinderFB.getAuditTrxIds())) {
+				List<String> ids = Arrays.asList(auditFinderFB.getAuditTrxIds().split("\\s+"));
+				payloads = auditSrv.searchPayload(ids);
 			}
 			else {
-				payloads = auditSrv.searchPayload(auditFinderFB.getServiceId(), auditFinderFB.getPayloadType(), auditFinderFB.getChannelKey(), auditFinderFB.getDate());
+				payloads = auditSrv.searchPayload(new ArrayList<>(), auditFinderFB.getServiceId(), auditFinderFB.getPayloadType(), 
+						auditFinderFB.getChannelKey(), auditFinderFB.getFromDate(), auditFinderFB.getToDate(), auditFinderFB.getPhrase());
 			}
 		}
 		catch(ServiceException ex) {
