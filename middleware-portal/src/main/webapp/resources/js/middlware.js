@@ -4,6 +4,22 @@
  */
 $(function() {
 	
+	$('input:radio[name=dateRadio]').change(function() {
+        		
+		if (this.value == 'search-date') {
+			
+			$('#af-date').prop('disabled', false);
+            $('#af-from-date').prop('disabled', true);
+            $('#af-to-date').prop('disabled', true);
+        }
+        else if (this.value == 'search-interval') {
+        	
+        	$('#af-date').prop('disabled', true);
+            $('#af-from-date').prop('disabled', false);
+            $('#af-to-date').prop('disabled', false);
+        }
+    });
+	
 	/**
 	 * payload details dialog
 	 */

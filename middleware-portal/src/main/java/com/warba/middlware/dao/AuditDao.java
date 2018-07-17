@@ -64,18 +64,18 @@ public class AuditDao extends MPortalDao {
 				}
 				else {
 					//get by payload type & phrase
-					payloads = session.createNamedQuery("get_audits_by_payload_type_and_phrase", AuditPayload.class)
+					payloads = session.getNamedNativeQuery("get_audits_by_payload_type_and_phrase")
 							.setParameter("serviceId", serviceId)
 							.setParameter("payloadType", payloadType)
 							.setParameter("phrase", phrase)
 							.setParameter("fromDate", fromDate)
 							.setParameter("toDate", toDate)
-							.getResultList();
+							.list();
 				}
 			}
-			else if(!StringUtils.isEmpty(channelKey)) {
+			else if(!StringUtils.isEmpty(channelKey) && payloadType == 0) {
 				
-				//get by channelKey type
+				//get by channelKey
 				if(StringUtils.isEmpty(phrase)) {
 					payloads = session.createNamedQuery("get_audits_by_channel", AuditPayload.class)
 							.setParameter("serviceId", serviceId)
@@ -86,14 +86,62 @@ public class AuditDao extends MPortalDao {
 				}
 				else {
 					//get by channelKey & phrase
-					payloads = session.createNativeQuery("get_audits_by_channel_and_phrase", AuditPayload.class)
+					payloads = session.getNamedNativeQuery("get_audits_by_channel_and_phrase")
 							.setParameter("serviceId", serviceId)
 							.setParameter("channelKey", channelKey)
-							.setParameter("phrase", phrase)
+							.setParameter("phrase", "%" + phrase + "%")
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.list();
+				}
+			}
+			else if(!StringUtils.isEmpty(channelKey) && payloadType > 0) {
+				
+				//get by payload type and channelKey
+				if(StringUtils.isEmpty(phrase)) {
+					payloads = session.createNamedQuery("get_audits_by_payload_type_and_channel", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("payloadType", payloadType)
+							.setParameter("channelKey", channelKey)
 							.setParameter("fromDate", fromDate)
 							.setParameter("toDate", toDate)
 							.getResultList();
 				}
+				else {
+					//get by channelKey & phrase
+					payloads = session.getNamedNativeQuery("get_audits_by_payload_type_and_channel_and_phrase")
+							.setParameter("serviceId", serviceId)
+							.setParameter("payloadType", payloadType)
+							.setParameter("channelKey", channelKey)
+							.setParameter("phrase", "%" + phrase + "%")
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.list();
+				}
+			}
+			else if(StringUtils.isEmpty(channelKey) && payloadType == 0) {
+				
+				//get by service id only
+				if(StringUtils.isEmpty(phrase)) {
+					payloads = session.createNamedQuery("get_audits", AuditPayload.class)
+							.setParameter("serviceId", serviceId)
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.getResultList();
+				}
+				else {
+					//get by channelKey & phrase
+					payloads = session.getNamedNativeQuery("get_audits_by_phrase")
+							.setParameter("serviceId", serviceId)
+							.setParameter("phrase", "%" + phrase + "%")
+							.setParameter("fromDate", fromDate)
+							.setParameter("toDate", toDate)
+							.list();
+				}
+			}
+			else {
+				rollback(session);
+				throw new DaoException("Unknown search criteria");
 			}
 			
 			commit(session);

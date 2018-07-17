@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,16 +63,29 @@ public class AuditService {
 	}
 	
 	/**
-	 * search audit payloads for the given criteria's
+	 * Search audit payloads for the given criteria
 	 * 
+	 * @param trxIds
 	 * @param serviceId
 	 * @param payloadType
 	 * @param channelKey
 	 * @param date
+	 * @param fromDate
+	 * @param toDate
+	 * @param phrase
 	 * @return
+	 * @throws ServiceException
 	 */
 	public List<AuditPayload> searchPayload(List<String> trxIds, long serviceId, int payloadType, String channelKey,
-			Date fromDate, Date toDate, String phrase) throws ServiceException {
+			Date date, Date fromDate, Date toDate, String phrase) throws ServiceException {
+		
+		if(date != null) {
+			fromDate = date;
+			toDate = DateUtils.addDays(date, 1);
+		}
+		else {
+			toDate = DateUtils.addDays(toDate, 1);
+		}
 		
 		try {
 			return auditDao.findAuditPayloads(trxIds, serviceId, payloadType, channelKey, fromDate, toDate, phrase);

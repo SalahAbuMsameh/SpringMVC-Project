@@ -59,32 +59,32 @@
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
 					    	<div class="radio">
-						      	<label for="date" style="font-weight: bold;" th:text="#{label.date}">
-						      		<input type="radio" name="dateRadio" value="date" th:field="*{dateType}" checked="checked">Date
-						      	</label>
+					    		<label style="font-weight: bold;">
+					    			<input type="radio" name="dateRadio" value="search-date" th:text="#{label.date}" th:field="*{dateType}">
+					    		</label>
 						    </div>
-					    	<input type="date" id="date" class="form-control datepicker-input" th:field="*{date}"/>
+					    	<input type="date" id="af-date" class="form-control datepicker-input" th:field="*{date}"/>
 					  	</div>
 			  		</div>
 			  	</div>
 			  	
 			  	<div class="row">
-			  	
 			  		<div class="radio" style="padding-left: 15px;">
-				      	<label style="font-weight: bold;" th:text="#{label.interval}">
-				      		<input type="radio" name="dateRadio" value="interval" th:field="*{dateType}">Interval
-				      	</label>
+			  			<label style="font-weight: bold;">
+			  				<input type="radio" name="dateRadio" value="search-interval" th:text="#{label.interval}" th:field="*{dateType}">
+			  			</label>
 				    </div>
 			  	
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
-					    	<input type="date" id="datepicker" class="form-control datepicker-input" th:field="*{fromDate}" placeholder="From Date"/>
+					    	<input type="date" id="af-from-date" class="form-control datepicker-input" th:field="*{fromDate}" placeholder="From Date"/>
 					    	<p style="color: red;" th:if="${#fields.hasErrors('fromDate')}" th:errors="*{fromDate}">Invalid date</p>
 					  	</div>
 			  		</div>
+			  		
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
-					    	<input type="date" id="datepicker" class="form-control datepicker-input" th:field="*{toDate}" placeholder="To Date"/>
+					    	<input type="date" id="af-to-date" class="form-control datepicker-input" th:field="*{toDate}" placeholder="To Date"/>
 					    	<p style="color: red;" th:if="${#fields.hasErrors('toDate')}" th:errors="*{toDate}">Invalid date</p>
 					  	</div>
 			  		</div>
@@ -95,9 +95,10 @@
 			  	<div class="row">
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
-					    	<label for="trxId" th:text="#{label.trx.id}">Transaction Id(s)</label>
+					    	<label for="trxId" th:text="#{label.trx.ids}">Transaction Id(s)</label>
 					    	<textarea id="trx-ids" class="form-control" rows="5" th:field="*{auditTrxIds}"></textarea>
 					    	<p style="color: red;" th:if="${#fields.hasErrors('auditTrxIds')}" th:errors="*{auditTrxIds}">Invalid date</p>
+					    	<p style="font-style:  italic; color: #266092;"><b>Note:</b> Separate the transaction ids by new line or white space</p>
 					  	</div>
 			  		</div>
 			  	</div>
@@ -112,7 +113,7 @@
 				  		<thead>
 				  			<tr>
 				  				<th th:text="#{label.id}">ID</th>
-				  				<th th:text="#{label.trx.id}">Trx Id</th>
+				  				<th th:text="#{label.trx.ids}">Trx Id</th>
 				  				<th th:text="#{label.service}">Service</th>
 				  				<th th:text="#{label.payloadType}">Payload Type</th>
 				  				<th th:text="#{label.channelKey}">Channel Key</th>

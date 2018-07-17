@@ -61,7 +61,8 @@ td.highlight {
     color: #ffffff;
 }
 
-.screen-height {
+.main-content {
+	background-color: #FFFFFF;
 	height: 86vh;
 	overflow: auto;
 }
@@ -69,4 +70,8 @@ td.highlight {
 .payloads-search-results {
 	height: 44vh;
 	overflow: auto;
+}
+
+#payload-content {
+	height: 350px;
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.warba.middlware.service.audit.AuditSearchDateType;
+
 /**
  * 
  * @author Salah Abu Msameh
@@ -15,7 +17,7 @@ public class AuditFinderFB {
 	private String channelKey;
 	private String auditTrxIds;
 	private String phrase;
-	private String dateType;
+	private String dateType = AuditSearchDateType.SINGLE.getDateType();
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;

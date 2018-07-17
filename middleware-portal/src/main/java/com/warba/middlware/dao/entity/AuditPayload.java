@@ -35,21 +35,36 @@ import javax.persistence.TemporalType;
 	@NamedQuery(
 		name = "get_audits_by_channel", 
 		query = "FROM AuditPayload WHERE serviceId = :serviceId AND channelKey = :channelKey AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC"
+	),
+	@NamedQuery(
+		name = "get_audits_by_payload_type_and_channel", 
+		query = "FROM AuditPayload WHERE serviceId = :serviceId AND payloadType = :payloadType AND channelKey = :channelKey AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC"
 	)
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(
+		name = "get_audits_by_phrase", 
+		query = "SELECT AUDIT_PAYLOAD_ID, AUDIT_PAYLOAD_TRX_ID, SERVICE_ID, PAYLOAD_TYPE, CHANNEL_KEY, AUDIT_PAYLOAD_DATE FROM AUDIT_PAYLOADS WHERE "
+				+ "SERVICE_ID = :serviceId AND AUDIT_PAYLOAD_DATE BETWEEN :fromDate AND :toDate AND PAYLOAD LIKE :phrase",
+		resultClass = AuditPayload.class
+	),
+	@NamedNativeQuery(
 		name = "get_audits_by_payload_type_phrase", 
-		query = "SELECT AUDIT_PAYLOAD_ID AS auditPayloadId, AUDIT_PAYLOAD_TRX_ID AS auditTrxId, SERVICE_ID AS serviceId,"
-				+ " PAYLOAD_TYPE AS payloadType, CHANNEL_KEY AS channelKey, AUDIT_PAYLOAD_DATE AS date "
-				+ " FROM AUDIT_PAYLOADS WHERE SERVICE_ID = :serviceId AND PAYLOAD_TYPE = :payloadType AND PAYLOAD LIKE %:phrase%",
+		query = "SELECT AUDIT_PAYLOAD_ID, AUDIT_PAYLOAD_TRX_ID, SERVICE_ID, PAYLOAD_TYPE, CHANNEL_KEY, AUDIT_PAYLOAD_DATE FROM AUDIT_PAYLOADS WHERE "
+				+ "SERVICE_ID = :serviceId AND PAYLOAD_TYPE = :payloadType AND AUDIT_PAYLOAD_DATE BETWEEN :fromDate AND :toDate AND PAYLOAD LIKE :phrase",
 		resultClass = AuditPayload.class
 	),
 	@NamedNativeQuery(
 		name = "get_audits_by_channel_and_phrase", 
-		query = "SELECT AUDIT_PAYLOAD_ID AS auditPayloadId, AUDIT_PAYLOAD_TRX_ID AS auditTrxId, SERVICE_ID AS serviceId,"
-				+ " PAYLOAD_TYPE AS payloadType, CHANNEL_KEY AS channelKey, AUDIT_PAYLOAD_DATE AS date "
-				+ " FROM AUDIT_PAYLOADS WHERE SERVICE_ID = :serviceId AND CHANNEL_KEY = :channelKey AND PAYLOAD LIKE %:phrase%",
+		query = "SELECT AUDIT_PAYLOAD_ID, AUDIT_PAYLOAD_TRX_ID, SERVICE_ID, PAYLOAD_TYPE, CHANNEL_KEY, AUDIT_PAYLOAD_DATE FROM AUDIT_PAYLOADS "
+				+ "WHERE SERVICE_ID = :serviceId AND CHANNEL_KEY = :channelKey AND AUDIT_PAYLOAD_DATE BETWEEN :fromDate AND :toDate AND PAYLOAD LIKE :phrase",
+		resultClass = AuditPayload.class
+	),
+	@NamedNativeQuery(
+		name = "get_audits_by_payload_type_and_channel_and_phrase", 
+		query = "SELECT AUDIT_PAYLOAD_ID, AUDIT_PAYLOAD_TRX_ID, SERVICE_ID, PAYLOAD_TYPE, CHANNEL_KEY, AUDIT_PAYLOAD_DATE FROM AUDIT_PAYLOADS "
+				+ "WHERE SERVICE_ID = :serviceId AND PAYLOAD_TYPE = :payloadType AND CHANNEL_KEY = :channelKey AND AUDIT_PAYLOAD_DATE BETWEEN :fromDate AND :toDate "
+				+ "AND PAYLOAD LIKE :phrase",
 		resultClass = AuditPayload.class
 	)
 })

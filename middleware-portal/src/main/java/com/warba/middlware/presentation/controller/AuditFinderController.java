@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.xml.transform.TransformerException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -23,10 +24,10 @@ import com.warba.common.utils.Log;
 import com.warba.middlware.dao.entity.AuditPayload;
 import com.warba.middlware.presentation.Pages;
 import com.warba.middlware.presentation.formbean.AuditFinderFB;
-import com.warba.middlware.presentation.validator.AuditFinderFormValidator;
 import com.warba.middlware.service.ServiceException;
 import com.warba.middlware.service.audit.AuditService;
 import com.warba.middlware.service.audit.PayloadTypes;
+import com.warba.middlware.util.Utils;
 
 /**
  * 
@@ -84,7 +85,8 @@ public class AuditFinderController {
 			}
 			else {
 				payloads = auditSrv.searchPayload(new ArrayList<>(), auditFinderFB.getServiceId(), auditFinderFB.getPayloadType(), 
-						auditFinderFB.getChannelKey(), auditFinderFB.getFromDate(), auditFinderFB.getToDate(), auditFinderFB.getPhrase());
+						auditFinderFB.getChannelKey(), auditFinderFB.getDate(), auditFinderFB.getFromDate(), auditFinderFB.getToDate(), 
+						auditFinderFB.getPhrase());
 			}
 		}
 		catch(ServiceException ex) {
@@ -112,14 +114,24 @@ public class AuditFinderController {
 			return "Error, audit record id is mandatory";
 		}
 		
+		String payload = null;
+		
 		try {
-			return auditSrv.getAuditPayload(id);
+			payload = auditSrv.getAuditPayload(id);
 		} 
 		catch (ServiceException e) {
 			Log.error(AuditFinderController.class, ExceptionUtils.getFullStackTrace(e));
+			return payload;
 		}
 		
-		return null;
+		try {
+			return Utils.prettyXMLFormat("<envelope>" + payload + "</envelope>");
+		}
+		catch (TransformerException e) {
+			Log.error(AuditFinderController.class, ExceptionUtils.getFullStackTrace(e));
+		}
+		
+		return payload;
 	}
 	
 	/**
