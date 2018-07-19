@@ -4,7 +4,14 @@
  */
 $(function() {
 	
-	$('input:radio[name=dateRadio]').change(function() {
+	//check if the search-date radio is check at the page load
+	if($('#radio-search-date').is(':checked')) {
+		$('#af-date').prop('disabled', false);
+        $('#af-from-date').prop('disabled', true);
+        $('#af-to-date').prop('disabled', true);
+	}
+	
+	$('input:radio[name=dateType]').change(function() {
         		
 		if (this.value == 'search-date') {
 			
@@ -64,7 +71,6 @@ $(function() {
 		
 		//get payload content
 		$.get('/middleware-portal/audit-finder/getPayload/' + $(this).closest('tr').children('td:eq(0)').text(), function(data) {
-			console.log(data);
 			$('#payload-content code').text(data);
 		});
 		

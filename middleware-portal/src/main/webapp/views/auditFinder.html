@@ -60,7 +60,7 @@
 			  			<div class="form-group">
 					    	<div class="radio">
 					    		<label style="font-weight: bold;">
-					    			<input type="radio" name="dateRadio" value="search-date" th:text="#{label.date}" th:field="*{dateType}">
+					    			<input type="radio" id="radio-search-date" value="search-date" th:text="#{label.date}" th:field="*{dateType}">
 					    		</label>
 						    </div>
 					    	<input type="date" id="af-date" class="form-control datepicker-input" th:field="*{date}"/>
@@ -71,10 +71,10 @@
 			  	<div class="row">
 			  		<div class="radio" style="padding-left: 15px;">
 			  			<label style="font-weight: bold;">
-			  				<input type="radio" name="dateRadio" value="search-interval" th:text="#{label.interval}" th:field="*{dateType}">
+			  				<input type="radio" value="search-interval" th:text="#{label.interval}" th:field="*{dateType}">
 			  			</label>
 				    </div>
-			  	
+			  		
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
 					    	<input type="date" id="af-from-date" class="form-control datepicker-input" th:field="*{fromDate}" placeholder="From Date"/>
