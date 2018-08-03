@@ -1,25 +1,27 @@
 
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" th:fragment="header">
 
 	<!-- this is header -->
 	<nav class="navbar navbar-inverse">
 		<div class="container">
-			
+		
 			<div class="navbar-header">
-				<a class="navbar-brand" th:href="@{/}">Middleware Portal</a>
-			</div>
+		      	<a class="navbar-brand" th:href="@{/}">Middlewa re Portal</a>
+		    </div>
+		    
+		    <ul class="nav navbar-nav">
+		      	<li><a class="active" th:href="@{/audit-finder}">Audit Finder</a></li>
+		      	<li sec:authorize="hasAuthority('sys_admin')"><a th:href="@{/users}">Users</a></li>
+		    </ul>
+		    
+		    <ul class="nav navbar-nav navbar-right">
+		      	<li>
+		      		<form id="login-form" action="#" th:action="@{/logout}" method="post">
+						<button type="submit" class="btn navbar-btn pull-right"><!-- <span class="glyphicon glyphicon-search"></span> -->Logout</button>
+					</form>
+		      	</li>
+		    </ul>
 			
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/audit-finder}">Audit Finder</a></li>
-				</ul>
-				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/admin/user/users}">Users</a></li>
-				</ul>
-				<form id="login-form" action="#" th:action="@{/logout}" method="post">
-					<button type="submit" class="btn navbar-btn pull-right">Logout</button>
-				</form>
-			</div>
 		</div>
 	</nav>
 </div>

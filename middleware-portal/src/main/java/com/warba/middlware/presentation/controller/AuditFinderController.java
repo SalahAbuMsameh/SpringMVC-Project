@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +22,7 @@ import com.warba.common.utils.Log;
 import com.warba.middlware.dao.entity.AuditPayload;
 import com.warba.middlware.presentation.Pages;
 import com.warba.middlware.presentation.formbean.AuditFinderFB;
+import com.warba.middlware.presentation.validator.AuditFinderFormValidator;
 import com.warba.middlware.service.ServiceException;
 import com.warba.middlware.service.audit.AuditService;
 import com.warba.middlware.service.audit.PayloadTypes;
@@ -39,14 +38,8 @@ public class AuditFinderController {
 	@Autowired
 	private AuditService auditSrv;
 	
-	/**
-	 * bind custom validator
-	 * @param binder
-	 */
-	@InitBinder
-    protected void initBinder(final WebDataBinder binder) {
-		//binder.addValidators(new AuditFinderFormValidator());
-	}
+	@Autowired
+	private AuditFinderFormValidator afValidator;
 	
 	/**
 	 * prepare audit finder form
@@ -56,10 +49,7 @@ public class AuditFinderController {
 	 */
 	@GetMapping(path = "/audit-finder")
 	public String auditFinder(Model model) {
-		
-		preparePageData(model);
-		model.addAttribute("auditFinderFB", new AuditFinderFB());
-		
+		preparePageData(model, new AuditFinderFB());
 		return Pages.AUDIT_FINDER;
 	}
 
@@ -72,7 +62,11 @@ public class AuditFinderController {
 	@PostMapping(path = "/audit-finder")
 	public String search(Model model, @Valid AuditFinderFB auditFinderFB, BindingResult bindingResult) {
 		
+		//validate
+		afValidator.validate(auditFinderFB, bindingResult);
+		
 		if(bindingResult.hasErrors()) {
+			preparePageData(model, auditFinderFB);
 			return Pages.AUDIT_FINDER;
 		}
 		
@@ -93,8 +87,7 @@ public class AuditFinderController {
 			bindingResult.reject("global", "Error, " + ex.getMessage());
 		}
 		
-		preparePageData(model);
-		model.addAttribute("auditFinderFB", auditFinderFB);
+		preparePageData(model, auditFinderFB);
 		model.addAttribute("payloads", payloads);
 		
 		return Pages.AUDIT_FINDER;
@@ -128,7 +121,7 @@ public class AuditFinderController {
 			return Utils.prettyXMLFormat("<envelope>" + payload + "</envelope>");
 		}
 		catch (TransformerException e) {
-			Log.error(AuditFinderController.class, ExceptionUtils.getFullStackTrace(e));
+			Log.error(AuditFinderController.class, "Unable to pretty format xml, " + e.getException());
 		}
 		
 		return payload;
@@ -137,9 +130,12 @@ public class AuditFinderController {
 	/**
 	 * 
 	 * @param model
+	 * @param auditFinderFB
 	 */
-	private void preparePageData(Model model) {
+	private void preparePageData(Model model, AuditFinderFB auditFinderFB) {
+		
 		model.addAttribute("services", auditSrv.getAuditServices());
 		model.addAttribute("payloadTypes", PayloadTypes.values());
+		model.addAttribute("auditFinderFB", auditFinderFB);
 	}
 }

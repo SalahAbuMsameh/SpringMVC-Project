@@ -14,9 +14,9 @@
 				
 				<div class="row" style="padding-bottom:  15px;">
 			  		<div class="col-sm-4">
-			  			<label class="required" for="service" th:text="#{label.service}">Service</label>
+			  			<label for="service" th:text="#{label.service.req}">Service</label>
 						<select id="service" class="form-control" th:field="*{serviceId}">
-						    <option th:each="srv : ${services}" th:value="${srv.serviceId}" th:text="${srv.serviceName}"/>
+						    <option th:each="srv : ${services}" th:value="${srv.key}" th:text="${srv.value}"/>
 					    </select>
 						<p style="color: red;" th:if="${#fields.hasErrors('serviceId')}" th:errors="*{serviceId}">Invalid service value</p>
 			  		</div>
@@ -41,6 +41,7 @@
 						        <option th:value="CIB">Corporate Internet Banking (CIB)</option>
 						        <option th:value="SharePoint">SharePoint</option>
 						        <option th:value="VBM">Virtual Branch Machine (VBM)</option>
+						        <option th:value="IVR">Interactive Voice Response (IVR)</option>
 				      		</select>
 					  	</div>
 			  		</div>
@@ -53,17 +54,16 @@
 			  		</div>
 			  	</div>
 			  	
-			  	<hr/>
-			  	
 			  	<div class="row">
 			  		<div class="col-sm-4">
 			  			<div class="form-group">
 					    	<div class="radio">
 					    		<label style="font-weight: bold;">
-					    			<input type="radio" id="radio-search-date" value="search-date" th:text="#{label.date}" th:field="*{dateType}">
+					    			<input type="radio" id="radio-search-date" value="search-date" th:text="#{label.date.req}" th:field="*{dateType}">
 					    		</label>
 						    </div>
 					    	<input type="date" id="af-date" class="form-control datepicker-input" th:field="*{date}"/>
+					    	<p style="color: red;" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Invalid date</p>
 					  	</div>
 			  		</div>
 			  	</div>
@@ -71,7 +71,7 @@
 			  	<div class="row">
 			  		<div class="radio" style="padding-left: 15px;">
 			  			<label style="font-weight: bold;">
-			  				<input type="radio" value="search-interval" th:text="#{label.interval}" th:field="*{dateType}">
+			  				<input type="radio" value="search-interval" th:text="#{label.interval.req}" th:field="*{dateType}">
 			  			</label>
 				    </div>
 			  		
@@ -89,8 +89,6 @@
 					  	</div>
 			  		</div>
 			  	</div>
-			  	
-			  	<hr/>
 			  	
 			  	<div class="row">
 			  		<div class="col-sm-4">
@@ -124,9 +122,13 @@
 				  			<tr th:each="payload : ${payloads}">
 								<td th:text="${payload.auditPayloadId}"></td>
 								<td th:text="${payload.auditTrxId}"></td>
-								<!-- <td th:text="${services.get(payload.serviceId)}"></td> -->
-								<td th:text="${payload.serviceId}"></td>
-								<td th:text="${payload.payloadType}"></td>
+								<td th:text="${services.get(payload.serviceId)}"></td>
+								<!-- <td th:text="${payload.serviceId}"></td> -->
+								<td th:switch="${payload.payloadType}"> 
+								  	<p th:case="'1'">Request</p>
+								  	<p th:case="'2'">Response</p>
+								  	<p th:case="'3'">Fault</p> 
+								</td>
 								<td th:text="${payload.channelKey}"></td>
 								<td th:text="${payload.date}"></td>
 							</tr>
@@ -140,7 +142,7 @@
 			<div id="payload-dialog" title="Payload Details">
 				
 				<div class="row" style="padding: 15px 0px 15px 0px;">
-					<div id="trx-id-dialog-field" class="col-sm-4">
+					<div id="trx-id-dialog-field" class="col-sm-5">
 						<strong>Transaction Id</strong><br />
 						<span>id</span>
 					</div>
@@ -148,14 +150,14 @@
 						<strong>Service</strong><br />
 						<span>service</span>
 					</div>
-					<div id="payload-type-dialog-field" class="col-sm-4">
+					<div id="payload-type-dialog-field" class="col-sm-3">
 						<strong>Payload Type</strong><br />
 						<span>payload type</span>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div id="channel-key-dialog-field" class="col-sm-4">
+					<div id="channel-key-dialog-field" class="col-sm-5">
 						<strong>Channel Key</strong><br />
 						<span>channel key</span>
 					</div>
@@ -170,7 +172,7 @@
 				<div class="form-group">
 					<label for="comment">Payload</label>
 					<pre id="payload-content">
-						<code></code>
+						<code class="xml hljs"></code>
 					</pre>
 				 	<!-- <textarea id="payload-content" class="form-control code" rows="15"></textarea> -->
 				</div> 

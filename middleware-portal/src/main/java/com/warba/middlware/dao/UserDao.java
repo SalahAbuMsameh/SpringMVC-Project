@@ -1,5 +1,7 @@
 package com.warba.middlware.dao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -42,18 +44,17 @@ public class UserDao extends MPortalDao {
 	public List<String> findUserRoles(long userId) throws DaoException {
 		
 		Session session = beginTransaction();
-		String sql = "SELECT R.ROLE_VAL FROM MP_ROLES R\r\n" + 
-				"INNER JOIN MP_USER_ROLES UR ON R.ROLE_ID = UR.ROLE_ID\r\n" + 
+		String sql = "SELECT R.ROLE_VAL FROM MP_ROLES R " + 
+				"INNER JOIN MP_USER_ROLES UR ON R.ROLE_ID = UR.ROLE_ID " + 
 				"WHERE UR.USER_ID = :userId";
 		
 		try {
-			List<String> roles = session.createNativeQuery(sql, String.class)
+			List<?> roles = session.createNativeQuery(sql)
 					.setParameter("userId", userId)
 					.getResultList();
 					
 			commit(session);
-			
-			return roles;	
+			return (List<String>) roles;
 		} 
 		catch (NoResultException ex) {
 			rollback(session);

@@ -52,8 +52,13 @@ td.highlight {
     background-color: #380786;
 }
 
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
-    background-color: #4c4a77;
+.navbar-inverse .navbar-nav>li>a {
+	color: #FFFFFF;
+	display: block;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li .active {
+	background-color: #4c4a77;
 }
 
 .ui-widget-header {
@@ -74,4 +79,12 @@ td.highlight {
 
 #payload-content {
 	height: 350px;
+}
+
+.asterisk {
+   	color:red;
+}
+
+td>p {
+	margin: 0;
 }

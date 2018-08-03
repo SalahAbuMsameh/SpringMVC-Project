@@ -74,6 +74,11 @@ $(function() {
 			$('#payload-content code').text(data);
 		});
 		
+		//highlight code
+		$('#payload-content code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+		
 		dialog.dialog("open");
 	});
 	

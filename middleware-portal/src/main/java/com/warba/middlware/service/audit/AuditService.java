@@ -1,7 +1,9 @@
 package com.warba.middlware.service.audit;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -16,7 +18,7 @@ import com.warba.middlware.dao.entity.AuditServiceEntity;
 import com.warba.middlware.service.ServiceException;
 
 /**
- * Audit ser\vice
+ * Audit service
  * 
  * @author Salah Abu Msameh
  */
@@ -27,19 +29,20 @@ public class AuditService {
 	private AuditDao auditDao;
 	
 	//caches
-	private List<AuditServiceEntity> services;
+	private Map<Long, String> services;
 	
 	/**
 	 * Retrieve all the services defined in the audit schema
 	 * @return
 	 */
-	public List<AuditServiceEntity> getAuditServices() {
+	public Map<Long, String> getAuditServices() {
 		
 		if(services != null) {
 			return services;
 		}
 		
-		services = auditDao.findAll(AuditServiceEntity.class);
+		services = new HashMap<Long, String>();
+		auditDao.findAll(AuditServiceEntity.class).forEach(entity -> services.put(entity.getServiceId(), entity.getServiceName()));
 		
 		return services;
 	}
