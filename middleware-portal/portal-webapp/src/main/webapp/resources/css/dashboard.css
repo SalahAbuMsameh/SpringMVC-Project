@@ -1,0 +1,269 @@
+/* dashboard css */
+@import 'https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900';
+/* @import "spinners.css"; */
+
+body {
+	background: #4f5467;
+    font-family: Rubik,sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    color: #686868;
+    font-weight: 300;
+    height: 100%;
+}
+
+h4 {
+    line-height: 22px;
+    font-size: 18px;
+}
+
+a:active, a:focus, a:hover {
+	outline: 0;
+	text-decoration: none
+}
+
+.footer {
+    bottom: 0;
+    color: #58666e;
+    left: 220px;
+    padding: 20px 30px;
+    position: absolute;
+    right: 0;
+    background: #fff;
+}
+
+.mb0 {
+	margin-bottom: 0!important;
+}
+
+.navbar-header {
+	width: 100%;
+    background: #85b4d0;
+}
+
+.navbar-default {
+    border: 0;
+    position: relative;
+    width: 100%;
+    top: 0;
+}
+
+.transparent-1 {
+    background: rgba(0,0,0,0.1);
+    width: 220px;
+    float: left;
+}
+
+.transparent-1 a {
+    color: #fff;
+    font-size: 18px;
+    padding-left: 0;
+    font-family: Rubik,sans-serif;
+    text-transform: uppercase;
+}
+
+.navbar-top-links>li>a:hover {
+    background: rgba(0,0,0,.1);
+}
+
+.navbar-top-links>li>a:focus {
+    background: rgba(0,0,0,0);
+}
+
+.logo b {
+    height: 60px;
+    display: inline-block;
+    width: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links>li>a {
+    color: #fff;
+    padding: 0 12px;
+    line-height: 60px;
+    min-height: 60px;
+}
+
+.sidebar {
+    background: #516673;
+    box-shadow: 1px 0 20px rgba(0,0,0,0.08);
+    z-index: 10;
+    position: absolute;
+    width: 220px;
+    padding-top: 60px;
+    height: 100%;
+}
+
+#side-menu li a {
+    color: #c8d1d6;
+    border-left: 0 solid #516673;
+}
+
+#side-menu>li>a {
+    padding: 15px 30px 15px 15px;
+}
+
+#side-menu>li>a:hover, #side-menu>li>a:focus {
+    background: rgba(0,0,0,0.07);
+}
+
+#side-menu>li>a.active i {
+    color: #85b4d0;
+}
+
+.sidebar .sidebat-text {
+    width: 20px;
+    text-align: left!important;
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+#side-menu>li>a.active {
+    border-left: 3px solid #85b4d0;
+    color: #ffffff;
+    font-weight: 500;
+    font-weight: bold;
+}
+
+#side-menu>li>a.active i {
+    color: #85b4d0;
+}
+
+.sidebar .fa-fw {
+    width: 20px;
+    text-align: left!important;
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.fa-fw {
+    text-align: center;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-fw {
+    width: 20px!important;
+    display: inline-block!important;
+    text-align: left!important;
+}
+
+#page-wrapper {
+    margin: 0 0 0 220px;
+    background: #edf1f5;
+    min-height: 333px;
+}
+
+.container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.bg-title {
+    background: #fff;
+    overflow: hidden;
+    padding: 15px 15px 10px;
+    margin-bottom: 25px;
+    margin-left: -25.5px;
+    margin-right: -25.5px;
+}
+
+.bg-title h4 {
+    color: rgba(0,0,0,.5);
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.white-box {
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.white-box .box-title {
+    margin: 0 0 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.text-muted {
+    color: #8d9ea7;
+}
+
+.col-in h3 {
+    font-size: 48px;
+    font-weight: 100;
+}
+
+.text-danger {
+    color: #cbb2ae;
+}
+
+.text-megna {
+    color: #aec9cb;
+}
+
+.text-primary, .text-purple {
+    color: #b5a8b9;
+}
+
+.progress {
+    -webkit-box-shadow: none!important;
+    background-color: rgba(120,130,140,.13);
+    box-shadow: none!important;
+    height: 4px;
+    border-radius: 0;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.btn-success, .btn-success.disabled {
+    background: #becfa6;
+    border: 1px solid #becfa6;
+}
+
+.btn-primary, .btn-primary.disabled {
+    background: #85b4d0;
+    border: 1px solid #85b4d0;
+}
+
+.btn-warning, .btn-warning.disabled {
+    background: #cbc3ae;
+    border: 1px solid #cbc3ae;
+}
+
+.btn-danger, .btn-danger.disabled {
+    background: #cbb2ae;
+    border: 1px solid #cbb2ae;
+}
+
+.btn-link, .btn-link:active, .btn-link:focus, .btn-link:hover {
+    border-color: transparent;
+}
+
+
+
+
+
+

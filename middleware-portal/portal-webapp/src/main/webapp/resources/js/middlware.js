@@ -74,12 +74,29 @@ $(function() {
 			$('#payload-content code').text(data);
 		});
 		
-		//highlight code
-		$('#payload-content code').each(function(i, block) {
-			hljs.highlightBlock(block);
-		});
-		
 		dialog.dialog("open");
 	});
 	
+	/**
+	 * show add user dialog
+	 */
+	$("#add-user-btn").click(function () {
+		
+		var addUserDialog = $("#add-user-dialog").dialog({
+			autoOpen : false,
+			height : "auto",
+			width : 750,
+			modal : true,
+			buttons : {
+				Cancel : function() {
+					dialog.dialog("close");
+				}
+			},
+			close : function() {
+				dialog.dialog("close");
+			}
+		});
+		
+		addUserDialog.dialog("open");
+	});
 });

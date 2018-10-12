@@ -1,17 +1,13 @@
 
-body {
-	font-size: 12px;
-	background-color: #f7f7f7;
-	color: #975b5b;
-}
+/* body { */
+/* 	font-size: 12px; */
+/* 	background-color: #f7f7f7; */
+/* 	color: #975b5b; */
+/* } */
 
 .table tbody tr td {
 	padding: 5px;
 	vertical-align: middle;
-}
-
-tbody>tr:hover {
-	background-color: #f5e8e8;
 }
 
 footer {
@@ -62,7 +58,7 @@ td.highlight {
 }
 
 .ui-widget-header {
-    background: #38077A;
+    background: #85b4d0;
     color: #ffffff;
 }
 
@@ -87,4 +83,8 @@ td.highlight {
 
 td>p {
 	margin: 0;
+}
+
+tbody>tr:hover {
+	background-color: #f5e8e8;
 }

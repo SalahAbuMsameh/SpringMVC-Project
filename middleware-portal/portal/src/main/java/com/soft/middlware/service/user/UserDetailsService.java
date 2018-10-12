@@ -33,42 +33,20 @@ public class UserDetailsService implements org.springframework.security.core.use
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Autowired
-	private UserDao userDao;
+	private UserManagementService userMangSrv;
 	
-	//loaded users
-	private Map<String, UserDetails> users = new HashMap<String, UserDetails>();
-	
-	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		UserDetails userDetails = users.get(username);
-		
-		if(userDetails != null) {
-			return userDetails;
-		}
-		
-		//load user
-		User user = null;
-		
-		try {
-			user = userDao.findByUsername(username); 
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		User user = userMangSrv.getUser(username);
 		
 		if(user == null) {
 			return null;
 		}
 		
-		//build and update cache
-		userDetails = buildUserDetails(user);
-		users.put(username, userDetails);
-		
-		return userDetails;
+		return buildUserDetails(user);
 	}
 	
 	/**
@@ -85,23 +63,18 @@ public class UserDetailsService implements org.springframework.security.core.use
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-		try {
-			for(String role : userDao.findUserRoles(user.getUserId())) {
+		//get user roles
+		userMangSrv.getUserRoles(user.getUserId()).forEach(role -> {
+			authorities.add(new GrantedAuthority() {
 				
-				authorities.add(new GrantedAuthority() {
-					
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public String getAuthority() {
-						return role;
-					}
-				});
-			}
-		} 
-		catch (DaoException e) {
-			Log.error(UserDetailsService.class, ExceptionUtils.getFullStackTrace(e));
-		}
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public String getAuthority() {
+					return role;
+				}
+			});
+		});
 		
 		return new SystemUserDetails(username, password, expired, locked, authorities, user) ;
 	}

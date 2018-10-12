@@ -1,27 +1,50 @@
 
 <div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" th:fragment="header">
 
-	<!-- this is header -->
-	<nav class="navbar navbar-inverse">
-		<div class="container">
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top mb0" >
 		
-			<div class="navbar-header">
-		      	<a class="navbar-brand" th:href="@{/}">Middlewa re Portal</a>
-		    </div>
-		    
-		    <ul class="nav navbar-nav">
-		      	<li><a class="active" th:href="@{/audit-finder}">Audit Finder</a></li>
-		      	<li sec:authorize="hasAuthority('sys_admin')"><a th:href="@{/users}">Users</a></li>
-		    </ul>
-		    
-		    <ul class="nav navbar-nav navbar-right">
-		      	<li>
-		      		<form id="login-form" action="#" th:action="@{/logout}" method="post">
-						<button type="submit" class="btn navbar-btn pull-right"><!-- <span class="glyphicon glyphicon-search"></span> -->Logout</button>
-					</form>
-		      	</li>
-		    </ul>
-			
-		</div>
+		<div class="navbar-header"> 
+	        <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"></a>
+	        <div class="transparent-1">
+	            <a class="logo" th:href="@{/}">
+	                <b><img th:src="@{/resources/images/logo.png}" alt="home"/></b>
+	                <span class="hidden-xs">Middleware</span>
+	            </a>
+	        </div>
+	        <!-- <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
+	            <li>
+	                <form role="search" class="app-search hidden-xs">
+	                    <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a>
+	                </form>
+	            </li>
+	        </ul> -->
+	        <ul class="nav navbar-top-links navbar-right pull-right">
+	            <li>
+	                <a class="profile-pic">
+	                	<b class="hidden-xs" th:text="${#authentication.getPrincipal().getUsername()}">User</b>
+	                </a>
+	            </li>
+	        </ul>
+	    </div>
 	</nav>
+	
+	<!-- Left navbar-header -->
+	<div class="navbar-default sidebar" role="navigation">
+		<ul id="side-menu" class="nav">
+	     	<li class="sidebar-link" style="padding: 10px 0 0;">
+	         	<a th:href="@{/home}"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
+	     	</li>
+	     	<li class="sidebar-link">
+	         	<a th:href="@{/audit-finder}"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Audit Finder</a>
+		     </li>
+		     <li class="sidebar-link">
+		         <a th:href="@{/users}"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Users</a>
+		     </li>
+		     <li class="sidebar-link">
+		         <a th:href="@{/about}"><i class="fa fa-folder fa-fw" aria-hidden="true"></i>About</a>
+		     </li>
+		 </ul>
+	</div> 
+
 </div>

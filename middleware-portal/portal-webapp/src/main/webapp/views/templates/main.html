@@ -7,29 +7,32 @@
 		<meta charset="UTF-8">
 	   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	   	
-	   	<script th:src="@{/resources/js/jquery-3.3.1.min.js}"></script>
-	   	<script th:src="@{/resources/js/jquery-ui.min.js}"></script>
-	   	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
-	   	<script th:src="@{/resources/js/highlight.pack.js}"></script>
-		<script th:src="@{/resources/js/middlware.js}"></script>
-	   	
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.min.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.min.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/jquery-ui.theme.min.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/idea.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/default.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/fontawesome.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/dashboard.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/middlware.css}">
+		
+		<script th:src="@{/resources/js/jquery-3.3.1.min.js}"></script>
+	   	<script th:src="@{/resources/js/jquery-ui.min.js}"></script>
+	   	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+		<script th:src="@{/resources/js/middlware.js}"></script>
 	</head>
 	<body>
-	
+		
+		<!-- Header -->
 		<div th:replace="common/header :: header"></div>
 		
 		<!-- content fragment -->
-		<div class="container main-content">
-			<div th:replace="${view} :: content">Content</div>
-		</div>
+	    <div id="page-wrapper">
+	        <div class="container-fluid">
+	        	<div th:replace="${view} :: content">Content</div>
+	        </div>
+        </div>
 		
-		<div th:replace="common/footer :: footer"></div>
+		<!-- Footer -->
+		<!-- <div th:replace="common/footer :: footer"></div> -->
 	
 	</body>
 </html>
